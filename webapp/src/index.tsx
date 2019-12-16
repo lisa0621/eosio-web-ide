@@ -5,6 +5,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Api, JsonRpc, RpcError } from 'eosjs';
 import { JsSignatureProvider } from 'eosjs/dist/eosjs-jssig';
+import { test } from './test';
 
 const rpc = new JsonRpc(''); // nodeos and web server are on same port
 
@@ -61,7 +62,7 @@ class PostForm extends React.Component<{}, PostFormState> {
                     blocksBehind: 3,
                     expireSeconds: 30,
                 });
-            console.log(result);
+            console.log(result);            
             this.setState({ error: '' });
         } catch (e) {
             if (e.json)
@@ -126,10 +127,16 @@ class Messages extends React.Component<{}, { content: string }> {
     constructor(props: {}) {
         super(props);
         this.state = { content: '///' };
+        // console.log(test.prototype.title);
+        // console.log(test.prototype.availableKeys);
+        console.log(test.prototype.getAvailableKeys());
+        console.log(test.prototype.cube(3));
+        console.log(test.prototype.hello());
     }
 
     componentDidMount() {
         this.interval = window.setInterval(async () => {
+            
             try {
                 const rows = await rpc.get_table_rows({
                     json: true, code: 'talk', scope: '', table: 'message', limit: 1000,
