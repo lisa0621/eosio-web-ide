@@ -132,6 +132,7 @@ class Messages extends React.Component<{}, { content: string }> {
         console.log(test.prototype.getAvailableKeys());
         console.log(test.prototype.cube(3));
         console.log(test.prototype.hello());
+        console.log(test.prototype.getApiTest());
     }
 
     componentDidMount() {

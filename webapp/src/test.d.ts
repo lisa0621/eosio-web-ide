@@ -9,4 +9,5 @@ export declare class test  {
     getAvailableKeys(): string[];
     cube(x: number): number; 
     hello(): string;
+    getApiTest(): void;
 }
