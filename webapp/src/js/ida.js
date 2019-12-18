@@ -1,15 +1,23 @@
- $(function(){
+var ida = (function(){
         csmapi.set_endpoint ('https://5.iottalk.tw');
         var profile = {
 		    'dm_name': 'Dummy_Device',          
 			'idf_list':[Dummy_Sensor],
 			'odf_list':[Dummy_Control],
-		    'd_name': undefined,
+            'd_name': undefined,
         };
+
+        var testVal = 0;
+
+        function setTestVal(num){
+            testVal = num;
+        }
 		
         function Dummy_Sensor(){
             //return Math.random();
-            return test.prototype.cube(3);
+           //return test.prototype.cube(3);
+           console.log("testVal:"+testVal);
+           return testVal;
         }
 
         function Dummy_Control(data){
@@ -18,10 +26,14 @@
       
 /*******************************************************************/                
         function ida_init(){
-	    console.log(profile.d_name);
-	}
-        var ida = {
+	        console.log(profile.d_name);
+        }
+
+        var ida = {            
             'ida_init': ida_init,
-        }; 
-        dai(profile,ida);     
-});
+            'setTestVal': setTestVal
+        };
+    
+        dai(profile, ida);  
+        return ida;          
+})();

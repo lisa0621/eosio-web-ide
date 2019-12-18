@@ -11,6 +11,7 @@ var test = /** @class */ (function () {
     }
 
     test.prototype.cube = function (x) {
+       //ida.setTestVal(99);
         return x * x * x;
     }
 

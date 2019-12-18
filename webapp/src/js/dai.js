@@ -67,6 +67,7 @@ const dai = function (profile, ida) {
         console.log('register:', result);
         document.title = profile.d_name;
         ida.ida_init();
+        ida.setTestVal(222);
     }
 
     function deregisterCallback (result) {
