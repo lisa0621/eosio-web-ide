@@ -8,7 +8,8 @@
         };
 		
         function Dummy_Sensor(){
-            return Math.random();
+            //return Math.random();
+            return test.prototype.cube(3);
         }
 
         function Dummy_Control(data){
