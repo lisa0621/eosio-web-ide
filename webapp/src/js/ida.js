@@ -8,6 +8,7 @@ var ida = (function(){
         };
 
         var testVal = 0;
+        var dataList = new Array();
 
         function setTestVal(num){
             testVal = num;
@@ -21,7 +22,12 @@ var ida = (function(){
         }
 
         function Dummy_Control(data){
-           $('.ODF_value')[0].innerText=data[0];
+           dataList = data;
+           $('.ODF_value')[0].innerText=data[0];          
+        }
+
+        function getDataList(){
+            return dataList;
         }
       
 /*******************************************************************/                
@@ -31,7 +37,8 @@ var ida = (function(){
 
         var ida = {            
             'ida_init': ida_init,
-            'setTestVal': setTestVal
+            'setTestVal': setTestVal,
+            'getDataList': getDataList
         };
     
         dai(profile, ida);  
