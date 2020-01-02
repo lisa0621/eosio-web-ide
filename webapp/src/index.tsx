@@ -5,9 +5,10 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Api, JsonRpc, RpcError } from 'eosjs';
 import { JsSignatureProvider } from 'eosjs/dist/eosjs-jssig';
-import { test } from './test';
+// import { test } from './test';
 
 const rpc = new JsonRpc(''); // nodeos and web server are on same port
+var pre_content = "No Content!";
 
 interface PostData {
     id?: number;
@@ -34,9 +35,9 @@ class PostForm extends React.Component<{}, PostFormState> {
                 id: 0,
                 user: 'bob',
                 reply_to: 0,
-                content: 'This is a test'
+                content: ''
             },
-            error: '',
+            error: ''
         };
     }
 
@@ -48,32 +49,43 @@ class PostForm extends React.Component<{}, PostFormState> {
         //var xx = (window as { [key: string]: any })["ida"].getDataList();  
         //console.log("['ida'].getDataList():" + xx);
         //set content:
-        this.state.data.content = (window as { [key: string]: any })["ida"].getDataList();
-        try {
-            this.api.signatureProvider = new JsSignatureProvider([this.state.privateKey]);
-            const result = await this.api.transact(
-                {
-                    actions: [{
-                        account: 'talk',
-                        name: 'post',
-                        authorization: [{
-                            actor: this.state.data.user,
-                            permission: 'active',
-                        }],
-                        data: this.state.data,
-                    }]
-                }, {
-                    blocksBehind: 3,
-                    expireSeconds: 30,
-                });
-            console.log("Result:" + result);   
-            //(window as { [key: string]: any })["ida"].setTestVal(this.state.data.reply_to);
-            this.setState({ error: '' });
-        } catch (e) {
-            if (e.json)
-                this.setState({ error: JSON.stringify(e.json, null, 4) });
-            else
-                this.setState({ error: '' + e });
+        var get_content = (window as { [key: string]: any })["ida"].getDataList();
+        console.log("get_content:" + get_content + "length:" + get_content.length);
+        if (get_content.length > 0)
+        {
+            //this.setState({ pre_content: get_content.join() });
+            pre_content = get_content.join();   
+            this.state.data.content = pre_content;
+            console.log("content:" + this.state.data.content);
+        }
+        if (this.state.data.content.length > 0)
+        {
+            try {
+                this.api.signatureProvider = new JsSignatureProvider([this.state.privateKey]);
+                const result = await this.api.transact(
+                    {
+                        actions: [{
+                            account: 'talk',
+                            name: 'post',
+                            authorization: [{
+                                actor: this.state.data.user,
+                                permission: 'active',
+                            }],
+                            data: this.state.data,
+                        }]
+                    }, {
+                        blocksBehind: 3,
+                        expireSeconds: 30,
+                    });
+                console.log("Result:" + result);   
+                //(window as { [key: string]: any })["ida"].setTestVal(this.state.data.reply_to);
+                this.setState({ error: '' });
+            } catch (e) {
+                if (e.json)
+                    this.setState({ error: JSON.stringify(e.json, null, 4) });
+                else
+                    this.setState({ error: '' + e });
+            }
         }
     }
 
@@ -134,15 +146,27 @@ class Messages extends React.Component<{}, { content: string }> {
         this.state = { content: '///' };
         // console.log(test.prototype.title);
         // console.log(test.prototype.availableKeys);
-        console.log(test.prototype.getAvailableKeys());
-        console.log(test.prototype.cube(3));
-        console.log(test.prototype.hello());
-        console.log(test.prototype.getApiTest());
+        // console.log(test.prototype.getAvailableKeys());
+        // console.log(test.prototype.cube(3));
+        // console.log(test.prototype.hello());
+        // console.log(test.prototype.getApiTest());
     }
 
     componentDidMount() {
+        var postForm = new PostForm({});
         this.interval = window.setInterval(async () => {
-            
+            // var get_content = (window as { [key: string]: any })["ida"].getDataList();
+            // console.log("get_content:" + get_content + "length:" + get_content.length);
+            // if (get_content.length > 0)
+            // {
+            //     postForm.setState({ pre_content: get_content.join() });
+                
+            // }
+            // if (postForm.state.data.content.length > 0)
+            // {
+            //     //postForm.post();
+            // }           
+            postForm.post();
             try {
                 const rows = await rpc.get_table_rows({
                     json: true, code: 'talk', scope: '', table: 'message', limit: 1000,
@@ -164,7 +188,7 @@ class Messages extends React.Component<{}, { content: string }> {
                     this.setState({ content: '' + e });
             }
 
-        }, 200);
+        }, 5000);
     }
 
     componentWillUnmount() {
