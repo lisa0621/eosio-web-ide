@@ -45,6 +45,10 @@ class PostForm extends React.Component<{}, PostFormState> {
     }
 
     async post() {
+        //var xx = (window as { [key: string]: any })["ida"].getDataList();  
+        //console.log("['ida'].getDataList():" + xx);
+        //set content:
+        this.state.data.content = (window as { [key: string]: any })["ida"].getDataList();
         try {
             this.api.signatureProvider = new JsSignatureProvider([this.state.privateKey]);
             const result = await this.api.transact(
@@ -62,10 +66,8 @@ class PostForm extends React.Component<{}, PostFormState> {
                     blocksBehind: 3,
                     expireSeconds: 30,
                 });
-            console.log(result);   
+            console.log("Result:" + result);   
             //(window as { [key: string]: any })["ida"].setTestVal(this.state.data.reply_to);
-            var xx = (window as { [key: string]: any })["ida"].getDataList();  
-            console.log(xx);
             this.setState({ error: '' });
         } catch (e) {
             if (e.json)
