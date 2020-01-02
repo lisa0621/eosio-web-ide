@@ -17,7 +17,7 @@ var ida = (function(){
         function Block_IDF(){
             //return Math.random();
            //return test.prototype.cube(3);
-           console.log("testVal:"+testVal);
+           //console.log("testVal:"+testVal);
            return testVal;
         }
 
