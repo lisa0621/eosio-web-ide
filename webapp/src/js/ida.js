@@ -1,9 +1,9 @@
 var ida = (function(){
         csmapi.set_endpoint ('https://5.iottalk.tw');
         var profile = {
-		    'dm_name': 'Dummy_Device',          
-			'idf_list':[Dummy_Sensor],
-			'odf_list':[Dummy_Control],
+		    'dm_name': 'Block_DM',          
+			'idf_list':[Block_IDF],
+			'odf_list':[Block_ODF],
             'd_name': undefined,
         };
 
@@ -14,14 +14,14 @@ var ida = (function(){
             testVal = num;
         }
 		
-        function Dummy_Sensor(){
+        function Block_IDF(){
             //return Math.random();
            //return test.prototype.cube(3);
            console.log("testVal:"+testVal);
            return testVal;
         }
 
-        function Dummy_Control(data){
+        function Block_ODF(data){
            dataList = data;
            $('.ODF_value')[0].innerText=data[0];          
         }
