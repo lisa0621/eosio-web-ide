@@ -1,5 +1,5 @@
 var ida = (function(){
-        csmapi.set_endpoint ('https://5.iottalk.tw');
+        csmapi.set_endpoint ('https://6.iottalk.tw');
         var profile = {
 		    'dm_name': 'Block_DM',          
 			'idf_list':[Block_IDF],
