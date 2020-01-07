@@ -169,7 +169,7 @@ class Messages extends React.Component<{}, { content: string }> {
             postForm.post();
             try {
                 const rows = await rpc.get_table_rows({
-                    json: true, code: 'talk', scope: '', table: 'message', limit: 1000,
+                    json: true, code: 'talk', scope: '', table: 'message', limit: 1000, reverse: true, 
                 });
                 let content =
                     'id          reply_to      user          content\n' +
