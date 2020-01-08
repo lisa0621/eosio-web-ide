@@ -78,7 +78,7 @@ class PostForm extends React.Component<{}, PostFormState> {
                         expireSeconds: 30,
                     });
                 console.log("Result:" + result);   
-                //(window as { [key: string]: any })["ida"].setTestVal(this.state.data.reply_to);
+                (window as { [key: string]: any })["ida"].setTestVal(this.state.data.content);
                 this.setState({ error: '' });
             } catch (e) {
                 if (e.json)
